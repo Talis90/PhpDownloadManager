@@ -1,0 +1,24 @@
+{
+    "name": "talis90/php-download-manager",
+    "description": "Manage Downloads",
+    "authors": [
+        {
+            "name": "Talis90"
+        }
+    ],
+    "type": "library",
+    "keywords": [
+        "media",
+        "php"
+    ],
+    "license": "GPL-3.0",
+    "require": {
+        "HtmlMediaFinder": "dev-master",
+        "php": ">=5.4.4"
+    },
+    "autoload": {
+        "psr-0": {
+            "PhpDownloadManager\\": "library/"
+        }
+    }
+}
