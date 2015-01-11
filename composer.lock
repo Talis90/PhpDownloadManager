@@ -1,0 +1,61 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "635bc2e8ff337469100430ed20b5f38e",
+    "packages": [
+        {
+            "name": "talis90/html-media-finder",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Talis90/HtmlMediaFinder.git",
+                "reference": "bcd8bf04997fbe3dffe3a2106e4c9edfe9703a62"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Talis90/HtmlMediaFinder/zipball/bcd8bf04997fbe3dffe3a2106e4c9edfe9703a62",
+                "reference": "bcd8bf04997fbe3dffe3a2106e4c9edfe9703a62",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "HtmlMediaFinder\\": "library/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Talis90"
+                }
+            ],
+            "description": "Get media files download url by given html source code",
+            "keywords": [
+                "media",
+                "php"
+            ],
+            "time": "2015-01-11 15:35:02"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "talis90/html-media-finder": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=5.4.4"
+    },
+    "platform-dev": []
+}
