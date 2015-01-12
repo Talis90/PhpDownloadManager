@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Talis90/HtmlMediaFinder.git",
-                "reference": "bcd8bf04997fbe3dffe3a2106e4c9edfe9703a62"
+                "reference": "89cfd3bd5e1d3dc2af659cbe5e5ea051c813a598"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Talis90/HtmlMediaFinder/zipball/bcd8bf04997fbe3dffe3a2106e4c9edfe9703a62",
-                "reference": "bcd8bf04997fbe3dffe3a2106e4c9edfe9703a62",
+                "url": "https://api.github.com/repos/Talis90/HtmlMediaFinder/zipball/89cfd3bd5e1d3dc2af659cbe5e5ea051c813a598",
+                "reference": "89cfd3bd5e1d3dc2af659cbe5e5ea051c813a598",
                 "shasum": ""
             },
             "require": {
@@ -43,7 +43,7 @@
                 "media",
                 "php"
             ],
-            "time": "2015-01-11 15:35:02"
+            "time": "2015-01-11 17:30:26"
         }
     ],
     "packages-dev": [],
