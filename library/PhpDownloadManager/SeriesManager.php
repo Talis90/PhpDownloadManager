@@ -4,10 +4,16 @@ namespace PhpDownloadManager;
 
 use HtmlMediaFinder\RemoteXpathAdapter;
 
-class SeriesManager
+abstract class SeriesManager
 {
 	protected $seriesUrl;
 	protected $seriesName;
+
+	/**
+	 * Use $this->seriesUrl and RemoteXpathAdapter to get the real series name from providing site
+	 * method to overwrite
+	 */
+	abstract function remoteGetSeriesName();
 	
 	function setSeriesUrl($seriesUrl) {
 		$this->seriesUrl = $seriesUrl;
@@ -23,12 +29,5 @@ class SeriesManager
 			$this->seriesName = $this->remoteGetSeriesName();
 		}
 		return $this->seriesName;
-	}
-	
-	/**
-	 * method to overwrite
-	 */
-	function remoteGetSeriesName() {
-		throw new \Exception(__METHOD__ . ' must be overwritten by child class!');
 	}
 }
