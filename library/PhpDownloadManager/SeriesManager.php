@@ -8,16 +8,10 @@ abstract class SeriesManager
 {
 	protected $seriesUrl;
 	protected $seriesName;
-
-	/**
-	 * Use $this->seriesUrl and RemoteXpathAdapter to get the real series name from providing site
-	 * method to overwrite
-	 */
-	abstract function remoteGetSeriesName();
+	protected $seasonsMap;
 	
-	function setSeriesUrl($seriesUrl) {
+	function __construct($seriesUrl) {
 		$this->seriesUrl = $seriesUrl;
-		$this->seriesName = null;
 	}
 	
 	function getSeriesUrl() {
@@ -30,4 +24,23 @@ abstract class SeriesManager
 		}
 		return $this->seriesName;
 	}
+	
+	/**
+	 * Get the seasons numbers
+	 */
+	abstract function getSeasons();
+	
+	/**
+	 * Get the episode-urls of the given season
+	 * @param int $season
+	 */
+	abstract function getEpisodeUrls($season);
+	
+	abstract function getVideoUrl($episodeUrl);
+
+	/**
+	 * Use $this->seriesUrl and RemoteXpathAdapter to get the real series name from providing site
+	 * method to overwrite
+	 */
+	abstract protected function remoteGetSeriesName();
 }

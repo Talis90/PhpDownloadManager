@@ -2,6 +2,7 @@
 
 namespace PhpDownloadManager;
 
+use HtmlMediaFinder\HtmlMediaFinder;
 class DownloadManager
 {
 	protected static $translation = [
@@ -9,33 +10,66 @@ class DownloadManager
 		'de' => 'staffel'
 	];
 	
-	protected $seriesManager;
+	protected $seriesManagers = [];
+	protected $currentManager;
 	protected $seriesBasePath;
 	protected $language;
 	
-	function __construct(SeriesManager $seriesManager, $seriesBasePath, $language = 'en') {
-		$this->seriesManager = $seriesManager;
+	function __construct($seriesBasePath, $language = 'en') {
 		$this->seriesBasePath = $seriesBasePath;
 		$this->language = $language;
 	}
 	
-	function getLatestEpisode() {
-		return end(scandir($this->getSeriesPath() . DIRECTORY_SEPARATOR . $this->getLatestSeason()));
+	function addSeriesManager(SeriesManager $seriesManager) {
+		$this->seriesManagers[] = $seriesManager;
 	}
 	
-	function getLatestSeason() {
-// 		preg_match('/' . self::$translation[$this->language] . '\s[0-9]+/g', $subject, $matches);
+	/**
+	 * @return \PhpDownloadManager\SeriesManager
+	 */
+	function getCurrentSeriesManager() {
+		if ($this->currentManager === null) {
+			$this->currentManager = reset(array_keys($this->seriesManagers));
+		}
+		return $this->seriesManagers[$this->currentManager];
 	}
 	
-	function getSeasons() {
-		return scandir($this->getSeriesPath());
+	function getEpisodePath($season, $episode) {
+		return $this->getSeasonPath($season) . DIRECTORY_SEPARATOR . 's' . sprintf('%02d', $season) . 'e' . sprintf('%02d', $episode);
+	}
+	
+	function getSeasonPath($season) {
+		$path = $this->getSeriesPath() . DIRECTORY_SEPARATOR . self::$translation[$this->language] . ' ' . $season;
+		if (!is_dir($path)) {
+			mkdir($path);
+		}
+		return $path;
 	}
 	
 	function getSeriesPath() {
-		return $this->seriesBasePath . DIRECTORY_SEPARATOR . $this->seriesManager->getSeriesName();
+		$path = $this->seriesBasePath . DIRECTORY_SEPARATOR . $this->getCurrentSeriesManager()->getSeriesName();
+		if (!is_dir($path)) {
+			mkdir($path);
+		}
+		return $path;
 	}
 	
 	function run() {
-		
+		$seasons = $this->getCurrentSeriesManager()->getSeasons();
+		foreach ($seasons as $season) {
+			$urls = $this->getCurrentSeriesManager()->getEpisodeUrls($season);
+			foreach ($urls as $episode => $url) {
+				$episodeFile = $this->getEpisodePath($season, $episode);
+				if (!glob($episodeFile . '.*')) {
+					$videoUrl = $this->getCurrentSeriesManager()->getVideoUrl($url);
+					$downloadUrl = HtmlMediaFinder::getDownloadUrl($videoUrl);
+					preg_match('/\..{3}$/U', $downloadUrl, $matches);
+					$fileEnding = reset($matches);
+					echo 'downloading ' . $episodeFile . $fileEnding . "\n";
+					file_put_contents($episodeFile . $fileEnding, file_get_contents($downloadUrl));
+					echo 'completed.' . "\n";
+				}
+			}
+		}
 	}
 }
